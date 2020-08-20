@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jboss.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SpringSessionController {
 
+	public static final Logger LOGGER = Logger.getLogger(SpringSessionController.class);
+	
 	@GetMapping("/")
 	public String home(Model model, HttpSession session) {
 		@SuppressWarnings("unchecked")
@@ -23,8 +26,13 @@ public class SpringSessionController {
 		if (messages == null) {
 			messages = new ArrayList<>();
 		}
+		for(String s:messages) {
+			System.out.println("message:: "+s);
+		}
 		model.addAttribute("sessionMessages", messages);
-
+		
+		System.getProperty("jboss.host.name");
+		
 		return "index";
 	}
 
